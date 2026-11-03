@@ -1,16 +1,9 @@
 streamlit
 pandas
 numpy
-scikit-learn
-joblib
-matplotlib
-seabornpip install -r requirements.txt
-streamlit
-pandas
-numpy
 scikit-learn==1.6.1
+joblib
 matplotlib
 seaborn
-joblib
 supabase
 python-dotenv
