@@ -1,12 +1,27 @@
+import os
 import streamlit as st
 from supabase import create_client
 
 
+def get_config(key):
+    # First check environment variables (Render)
+    value = os.getenv(key)
+
+    if value:
+        return value
+
+    # Then check Streamlit secrets (local system)
+    try:
+        return st.secrets[key]
+    except Exception:
+        raise ValueError(f"{key} is not configured")
+
+
 def get_auth_client():
-    return create_client(
-        st.secrets["SUPABASE_URL"],
-        st.secrets["SUPABASE_KEY"]
-    )
+    supabase_url = get_config("SUPABASE_URL")
+    supabase_key = get_config("SUPABASE_KEY")
+
+    return create_client(supabase_url, supabase_key)
 
 
 def register_user(email, password):
